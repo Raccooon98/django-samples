@@ -7,6 +7,7 @@ from ckeditor.fields import RichTextField
 class notice(models.Model):
     title = models.TextField(blank=False)
     content = RichTextField()
+    img=models.ImageField(null=True)
     writer = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     
