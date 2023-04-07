@@ -1,21 +1,30 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from rest_framework.response import Response
 from .serializer import noticeSerializer
 from django.http import Http404, HttpResponse, HttpResponseForbidden
-from rest_framework import viewsets,status
+from rest_framework import viewsets,status,serializers
 from .models import notice
 from django.contrib.auth.decorators import login_required
 
 class NoticeView(viewsets.ModelViewSet):
     serializer_class = noticeSerializer
     queryset= notice.objects.all()
-    
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = '__all__'
+
 class NoticeAdminView(viewsets.ModelViewSet):
     serializer_class = noticeSerializer
     queryset= notice.objects.all()
-    @login_required
-    def create_post(self,request):
-        if not request.user.is_superuser:
-            return HttpResponseForbidden()
-        data=request.data
+    def create_post(self,request,*args, **kwargs):
+        if request.user.is_superuser:
+            data = request.data
+            return super().create(request, *args, **kwargs)
+        return HttpResponseForbidden()
+        
+        
+        
         

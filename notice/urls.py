@@ -16,13 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import NoticeView
+from .views import NoticeView,NoticeAdminView
 
 noticelist=NoticeView.as_view({
     'get': 'list'
 })
-admincreatenotice = NoticeView.as_view({
-    'post': 'create' 
+admincreatenotice = NoticeAdminView.as_view({
+    'post': 'create_post' 
 })
 urlpatterns = [
     path('admin/',admincreatenotice ),
