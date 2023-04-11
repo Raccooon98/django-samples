@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'notice',
     'ckeditor',
+    'ckeditor_uploader',
     'rest_framework',
     'storages',
 ]
@@ -49,10 +50,17 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'full',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Table', 'HorizontalRule', 'SpecialChar'],
+            ['Maximize'],
+        ],
         'height': 300,
-        'width': 900,
-    },
+        'width': 800,
+    }
 }
 
 MIDDLEWARE = [
@@ -71,11 +79,14 @@ AWS_ACCESS_KEY_ID = my_AWS_ACCESS_KEY_ID # .csv 파일에 있는 내용을 입�
 AWS_SECRET_ACCESS_KEY = my_AWS_SECRET_ACCESS_KEY # .csv 파일에 있는 내용을 입력 Secret access key
 AWS_REGION = my_AWS_REGION
 AWS_STORAGE_BUCKET_NAME = my_AWS_STORAGE_BUCKET_NAME # 설정한 버킷 이름
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
+AWS_S3_CUSTOM_DOMAIN = f'{my_AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
+
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
 
 TEMPLATES = [
