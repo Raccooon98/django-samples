@@ -24,7 +24,11 @@ noticelist=NoticeView.as_view({
 admincreatenotice = NoticeAdminView.as_view({
     'post': 'create_post' 
 })
+admindeletenotice = NoticeAdminView.as_view({
+    'delete':'delete'
+})
 urlpatterns = [
     path('admin/',admincreatenotice ),
+    path('admin/<int:pk>/',admindeletenotice ),
     path('',noticelist),
 ]

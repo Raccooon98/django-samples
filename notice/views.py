@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 class NoticeView(viewsets.ModelViewSet):
     serializer_class = noticeSerializer
-    queryset= notice.objects.all()
+    queryset= notice.objects.all().order_by('-date')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,7 +24,14 @@ class NoticeAdminView(viewsets.ModelViewSet):
             data = request.data
             return super().create(request, *args, **kwargs)
         return HttpResponseForbidden()
+    
+    def delete(self,request,pk,*args,**kwargs):
         
+        if request.user.is_superuser:
+            del_object = notice.objects.filter(id=pk)
+            del_object.delete()
+            return HttpResponse({"response":"success"},status=status.HTTP_200_OK)
+        return HttpResponseForbidden()
         
         
         
