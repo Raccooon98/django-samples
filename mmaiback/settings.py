@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'rest_framework',
     'storages',
+    'corsheaders',
 ]
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -64,6 +65,7 @@ CKEDITOR_CONFIGS = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -74,6 +76,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mmaiback.urls'
+
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000'
+                         ,'http://localhost:3000']
+CORS_ALLOW_CREDENTIALS = True
 
 AWS_ACCESS_KEY_ID = my_AWS_ACCESS_KEY_ID # .csv 파일에 있는 내용을 입력 Access key ID
 AWS_SECRET_ACCESS_KEY = my_AWS_SECRET_ACCESS_KEY # .csv 파일에 있는 내용을 입력 Secret access key
