@@ -20,6 +20,11 @@ from .views import NoticeView,NoticeAdminView
 
 noticelist=NoticeView.as_view({
     'get': 'list'
+    
+})
+noticedetail=NoticeView.as_view({
+    'get': 'retrieve'
+    
 })
 admincreatenotice = NoticeAdminView.as_view({
     'post': 'create_post' 
@@ -31,4 +36,5 @@ urlpatterns = [
     path('admin/',admincreatenotice ),
     path('admin/<int:pk>/',admindeletenotice ),
     path('',noticelist),
+    path('<int:pk>/',noticedetail),
 ]

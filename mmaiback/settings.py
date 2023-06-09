@@ -170,11 +170,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko'
 
-TIME_ZONE = 'UTC'
 
-USE_I18N = True
-
-USE_TZ = True
+TIME_ZONE = 'Asia/Seoul' #시간대 설정
+USE_I18N = True #국제화(Internationalization)
+USE_L10N = True #지역화(localization)
+USE_TZ = False #장고 시간대
 
 
 # Static files (CSS, JavaScript, Images)
