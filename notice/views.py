@@ -26,18 +26,13 @@ class NoticeAdminView(viewsets.ModelViewSet):
     serializer_class = noticeSerializer
     queryset= notice.objects.all()
     def create_post(self,request,*args, **kwargs):
-        if request.user.is_superuser:
-            data = request.data
-            return super().create(request, *args, **kwargs)
-        return HttpResponseForbidden()
+        data = request.data
+        return super().create(request, *args, **kwargs)
     
     def delete(self,request,pk,*args,**kwargs):
-        
-        if request.user.is_superuser:
-            del_object = notice.objects.filter(id=pk)
-            del_object.delete()
-            return HttpResponse({"response":"success"},status=status.HTTP_200_OK)
-        return HttpResponseForbidden()
+        del_object = notice.objects.filter(id=pk)
+        del_object.delete()
+        return HttpResponse({"response":"success"},status=status.HTTP_200_OK)
         
         
         
