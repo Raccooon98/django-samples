@@ -1,12 +1,12 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 
 # Create your models here.
 class notice(models.Model):
     title = models.TextField(blank=False)
-    content = RichTextField()
+    content = RichTextUploadingField()
     img=models.ImageField(null=True,blank=True)
     category = models.CharField(null=False,max_length=30,blank=True )
     writer = models.TextField()
