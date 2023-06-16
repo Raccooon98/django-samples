@@ -25,9 +25,10 @@ class UserSerializer(serializers.ModelSerializer):
 class NoticeAdminView(viewsets.ModelViewSet):
     serializer_class = noticeSerializer
     queryset= notice.objects.all()
-    # def create(self,request,*args, **kwargs):
-    #     data = request.data
-    #     return super().create(request, *args, **kwargs)
+    def create(self,request,*args, **kwargs):
+        data = request.data
+        print(data)
+        return super().create(request, *args, **kwargs)
     
     def delete(self,request,pk,*args,**kwargs):
         del_object = notice.objects.filter(id=pk)
