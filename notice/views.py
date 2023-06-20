@@ -26,8 +26,8 @@ class NoticeAdminView(viewsets.ModelViewSet):
     serializer_class = noticeSerializer
     queryset= notice.objects.all()
     def create(self,request,*args, **kwargs):
-        data = request.data
-        print(data)
+        #data = request.body
+        print(f"req:{request.POST.get('title')}")
         return super().create(request, *args, **kwargs)
     
     def delete(self,request,pk,*args,**kwargs):
