@@ -26,14 +26,10 @@ class NoticeAdminView(viewsets.ModelViewSet):
     serializer_class = noticeSerializer
     queryset= notice.objects.all()
     def create(self,request,*args, **kwargs):
-        #data = request.body
-        print(f"req:{request.POST.get('title')}")
-        return super().create(request, *args, **kwargs)
-    
-    def delete(self,request,pk,*args,**kwargs):
-        del_object = notice.objects.filter(id=pk)
-        del_object.delete()
-        return HttpResponse({"response":"success"},status=status.HTTP_200_OK)
+        data = request.data
+        print(data)
+        super().create(request, *args, **kwargs)
+        return HttpResponse({"success"},status=status.HTTP_200_OK)
         
         
         

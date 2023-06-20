@@ -170,6 +170,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko'
 
+DATE_FORMAT = 'Y-m-d'
+
+DATETIME_FORMAT = 'Y-m-d'
 
 TIME_ZONE = 'Asia/Seoul' #시간대 설정
 USE_I18N = True #국제화(Internationalization)
