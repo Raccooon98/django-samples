@@ -16,14 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import NoticeView,NoticeAdminView,NoticeQueryView
+from .views import NoticeView,NoticeAdminView
 
 noticelist=NoticeView.as_view({
-    'get': 'list'
+    'get': 'get_filter'
     
-})
-noticequery=NoticeQueryView.as_view({
-    'get':'get_filter'
 })
 noticedetail=NoticeView.as_view({
     'get': 'retrieve',
@@ -37,7 +34,6 @@ admincreatenotice = NoticeAdminView.as_view({
 urlpatterns = [
     path('create/',admincreatenotice ),
     path('',noticelist),
-    path('category',noticequery),
     path('<int:pk>/',noticedetail),
 ]
 

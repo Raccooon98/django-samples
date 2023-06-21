@@ -18,13 +18,6 @@ class NoticeView(viewsets.ModelViewSet):
         
         return super().retrieve(request, *args, **kwargs)
     
-
-
-class NoticeQueryView(viewsets.ModelViewSet):
-    serializer_class =noticeSerializer
-    queryset = notice.objects.all().order_by('-date')
-    
-    @action(detail=False, methods=['get'])
     def get_filter(self,request):
         category = request.GET.get('category')
         queryset = self.get_queryset()
@@ -32,6 +25,8 @@ class NoticeQueryView(viewsets.ModelViewSet):
             queryset = queryset.filter(category=category)
         serialized_data = self.serializer_class(queryset, many=True)
         return Response(serialized_data.data, status=200)
+
+
 
 class NoticeAdminView(viewsets.ModelViewSet):
     serializer_class = noticeSerializer
