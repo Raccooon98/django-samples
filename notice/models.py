@@ -15,3 +15,9 @@ class notice(models.Model):
     
     def __str__(self):
         return self.title
+
+
+class version(models.Model):
+    version=models.TextField(blank=True)
+    def __str__(self):
+        return self.version

@@ -2,10 +2,10 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from .serializer import noticeSerializer
+from .serializer import noticeSerializer,versionSerializer
 from django.http import Http404, HttpResponse, HttpResponseForbidden,JsonResponse
 from rest_framework import viewsets,status,serializers
-from .models import notice
+from .models import notice,version
 from django.contrib.auth.decorators import login_required
 
 class NoticeView(viewsets.ModelViewSet):
@@ -33,9 +33,19 @@ class NoticeAdminView(viewsets.ModelViewSet):
     queryset= notice.objects.all()
     def create(self,request,*args, **kwargs):
         data = request.data
-        print(data)
         super().create(request, *args, **kwargs)
-        return HttpResponse({"success"},status=status.HTTP_200_OK)
+        return HttpResponse({"success"},status=200)
         
         
-        
+class versionView(viewsets.ModelViewSet):
+    serializer_class = versionSerializer
+    queryset = version.objects.all().order_by('-id')
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        obj = queryset.first()  # 첫 번째 객체만 반환
+        return obj   
+    
+    def get_version(self, request):
+        serialized_data = self.serializer_class(self.get_object())
+        return Response(serialized_data.data, status=200)
