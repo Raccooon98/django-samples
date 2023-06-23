@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import NoticeView,NoticeAdminView,versionView
+from .views import NoticeView,NoticeAdminView,versionView,versionPostView
 
 noticelist=NoticeView.as_view({
     'get': 'get_filter'
@@ -26,6 +26,9 @@ returnversion = versionView.as_view({
     'get':'get_version',
     'post':'create',
     'delete':'destroy'
+})
+postversion = versionPostView.as_view({
+    'post':'create'
 })
 noticedetail=NoticeView.as_view({
     'get': 'retrieve',
@@ -41,5 +44,6 @@ urlpatterns = [
     path('',noticelist),
     path('<int:pk>/',noticedetail),
     path('version/',returnversion),
+    path('version/post/',postversion),
 ]
 

@@ -49,3 +49,7 @@ class versionView(viewsets.ModelViewSet):
     def get_version(self, request):
         serialized_data = self.serializer_class(self.get_object())
         return Response(serialized_data.data, status=200)
+
+class versionPostView(viewsets.ModelViewSet):
+    serializer_class = versionSerializer
+    queryset = version.objects.all()
