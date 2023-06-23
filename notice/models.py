@@ -6,8 +6,9 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 class notice(models.Model):
     title = models.TextField(blank=False)
-    content = models.TextField()
-    img=models.ImageField(null=True,blank=True)
+    content = RichTextUploadingField()
+    # img=models.ImageField(null=True,blank=True)
+    img=models.TextField(null=True)
     category = models.CharField(null=False,max_length=30,blank=True )
     writer = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
